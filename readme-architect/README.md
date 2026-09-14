@@ -15,6 +15,7 @@ A skill for transforming GitHub repositories into professional, technically veri
 - Final consistency validation
 - No-invention policy
 - Pruning of changelog-style accumulation and duplicated content
+- Relocation of long-form reference material (full API docs, catalogs, methodology, troubleshooting) into dedicated `docs/` files, linked from a short README
 
 ## Badge style
 
