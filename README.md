@@ -18,3 +18,7 @@ Sem dependências nem instalação — são ficheiros de texto simples.
 | Skill | O que faz |
 |---|---|
 | [`readme-architect`](readme-architect/) | Analisa um repositório e cria ou reestrutura o `README.md` — deteta stack, versões, scripts, testes e arquitetura reais, gera badges e diagramas Mermaid, e nunca inventa informação que não consiga confirmar no repositório. |
+
+## Licença
+
+[MIT](LICENSE)
