@@ -20,7 +20,7 @@ O princípio central é:
 Executar sempre que possível nesta ordem:
 
 1. Inspeccionar o README.md existente.
-2. Inspeccionar a estrutura do repositório.
+2. Inspeccionar a estrutura do repositório — incluir sempre uma procura explícita por um logo/banner já existente (ver secção Hero) e por ficheiro de licença.
 3. Identificar a stack tecnológica.
 4. Detectar versões a partir dos ficheiros reais.
 5. Identificar scripts e comandos disponíveis.
@@ -103,7 +103,8 @@ Verificar:
 - variáveis contra `.env.example`, código e configuração;
 - comandos Docker contra `Dockerfile` e `docker-compose.yml`;
 - workflows contra `.github/workflows`;
-- licença contra `LICENSE` ou `LICENSE.md`.
+- licença contra `LICENSE` ou `LICENSE.md`;
+- **números e contagens já escritos no README actual** (quantas abas, quantos endpoints, quantos testes, quantos scripts) contra o que o código tem agora. Um README mantido ao longo de várias sessões acumula facilmente contagens desactualizadas que ninguém volta a recontar — tratar qualquer número no README como uma afirmação a verificar, não como facto assumido.
 
 ## Score
 
@@ -124,7 +125,21 @@ Critérios:
 | Deployment | 5 |
 | Contribuição e licença | 5 |
 
-Apresentar, quando solicitado, o score antes e depois.
+Apresentar, quando solicitado, o score antes e depois — mesmo numa passagem cirúrgica (ver secção seguinte), o score não exige uma reescrita completa para ser calculado.
+
+## Quando o README já é maduro
+
+Nem todo o README a rever está desactualizado ou mal estruturado. Alguns já são tecnicamente exactos, mantidos a cada sessão de trabalho, só com lacunas estruturais pontuais (falta um logo, uma tabela de stack, uma secção de testes, um número desactualizado).
+
+Quando a auditoria mostrar isto, **não fazer uma reescrita completa**. Uma reescrita larga arrisca perder detalhe verificado com esforço (notas de incidentes, troubleshooting exacto, histórico de decisões, avisos específicos do projecto) só para o encaixar num template genérico — e isso é pior do que o README original, mesmo que visualmente mais "limpo".
+
+Nesse caso, o trabalho correcto é uma passagem de correcções cirúrgicas:
+
+- corrigir só as secções desactualizadas (números errados, listas que já não batem certo com o código, secções que descrevem uma versão antiga da funcionalidade);
+- acrescentar só o que falta claramente, nos sítios onde a estrutura já existente sugerir (badges, logo, tabela de stack, secção de testes), sem forçar a reordenação de secções já boas só para bater com a "Ordem preferencial" abaixo;
+- nunca apagar ou reescrever uma secção só porque não está no template recomendado, se já for tecnicamente correcta e útil ao leitor.
+
+A "Ordem preferencial" e a lista de secções da próxima secção são o ponto de partida para um README novo ou muito desorganizado — não uma checklist a impor sobre um README já maduro.
 
 ## Estrutura recomendada
 
@@ -180,6 +195,8 @@ Eliminar secções que não tenham conteúdo útil.
 
 Quando existir uma imagem ou demonstração real, pode ser colocada perto do topo.
 
+**Procurar sempre um logo já existente antes de assumir que não há nenhum** — não esperar que o utilizador o peça. Verificar na raiz e em pastas óbvias: `logo.png`, `logo.svg`, `banner.png`, `icon.png`, `.github/logo.*`, `docs/logo.*`, `assets/logo.*`, `assets/banner.*`. Um logo real que já existe no repositório mas nunca foi usado no README é uma peça em falta, não uma imagem fictícia — inserir.
+
 Não criar imagens fictícias.
 
 Pode utilizar:
@@ -189,6 +206,17 @@ Pode utilizar:
   <img src="..." alt="Project preview">
 </p>
 ```
+
+**Logos com texto/traços claros sobre fundo transparente** costumam só ler bem em fundo escuro — testar mentalmente a legibilidade nos dois temas do GitHub (claro e escuro) antes de o inserir tal como está. Se o logo só funcionar sobre fundo escuro, envolvê-lo num contentor com uma cor de fundo explícita — a cor de marca do próprio projecto, não um cinzento genérico — em vez de o deixar invisível em modo claro:
+
+```html
+<p align="center">
+  <img src="logo.png" alt="Project" width="420"
+       style="background:#0a1622;border-radius:14px;padding:20px 30px;">
+</p>
+```
+
+Isto não é inventar uma imagem nova; é tornar legível a imagem real que já existe, em qualquer tema.
 
 Quando o projecto for essencialmente uma biblioteca, CLI ou ferramenta técnica, preferir uma apresentação textual limpa em vez de uma imagem decorativa.
 
@@ -224,6 +252,7 @@ Template:
 - Incluir versões apenas quando verificadas.
 - Usar badges de estado, CI, licença ou cobertura apenas quando a origem puder ser confirmada.
 - Não criar badges para tecnologias que apenas aparecem em documentação ou comentários sem utilização demonstrável.
+- O texto de um badge (label e value, na URL do Shields.io) tem de ser seguro em URL — acentos e outros caracteres especiais não codificados partem o badge ou tornam-no imprevisível. Usar `_` para espaços (já é a convenção do Shields.io) e preferir a forma sem acentos de uma palavra em vez de a percent-encodar à mão.
 
 ### Categorias
 
