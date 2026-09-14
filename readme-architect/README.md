@@ -14,6 +14,7 @@ A skill for transforming GitHub repositories into professional, technically veri
 - README quality scoring
 - Final consistency validation
 - No-invention policy
+- Pruning of changelog-style accumulation and duplicated content
 
 ## Badge style
 

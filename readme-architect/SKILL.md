@@ -104,7 +104,8 @@ Verificar:
 - comandos Docker contra `Dockerfile` e `docker-compose.yml`;
 - workflows contra `.github/workflows`;
 - licença contra `LICENSE` ou `LICENSE.md`;
-- **números e contagens já escritos no README actual** (quantas abas, quantos endpoints, quantos testes, quantos scripts) contra o que o código tem agora. Um README mantido ao longo de várias sessões acumula facilmente contagens desactualizadas que ninguém volta a recontar — tratar qualquer número no README como uma afirmação a verificar, não como facto assumido.
+- **números e contagens já escritos no README actual** (quantas abas, quantos endpoints, quantos testes, quantos scripts) contra o que o código tem agora. Um README mantido ao longo de várias sessões acumula facilmente contagens desactualizadas que ninguém volta a recontar — tratar qualquer número no README como uma afirmação a verificar, não como facto assumido;
+- **acumulação de conteúdo tipo diário de sessões** — ver secção [Poda de conteúdo excessivo](#poda-de-conteúdo-excessivo). Um README que só recebeu acrescentos ao longo de muitas sessões, sem nunca ter sido resumido, é tão defeituoso como um que tem lacunas.
 
 ## Score
 
@@ -137,9 +138,41 @@ Nesse caso, o trabalho correcto é uma passagem de correcções cirúrgicas:
 
 - corrigir só as secções desactualizadas (números errados, listas que já não batem certo com o código, secções que descrevem uma versão antiga da funcionalidade);
 - acrescentar só o que falta claramente, nos sítios onde a estrutura já existente sugerir (badges, logo, tabela de stack, secção de testes), sem forçar a reordenação de secções já boas só para bater com a "Ordem preferencial" abaixo;
-- nunca apagar ou reescrever uma secção só porque não está no template recomendado, se já for tecnicamente correcta e útil ao leitor.
+- nunca apagar ou reescrever uma secção só porque não está no template recomendado, se já for tecnicamente correcta e útil ao leitor;
+- **podar sempre que houver acumulação** (ver secção seguinte) — a passagem cirúrgica não é só "acrescentar o que falta", é também remover ou resumir o que se acumulou sem necessidade. Um README mantido ao longo de muitas sessões que só recebe adições e nunca poda tende a crescer sem limite; corrigir isso faz parte do trabalho normal, não é uma reescrita.
 
 A "Ordem preferencial" e a lista de secções da próxima secção são o ponto de partida para um README novo ou muito desorganizado — não uma checklist a impor sobre um README já maduro.
+
+## Poda de conteúdo excessivo
+
+Um README não é um changelog, nem um diário de sessões de desenvolvimento, nem a documentação de arquitectura completa do projecto. Informação real e verificada pode ainda assim estar no sítio errado, ou repetida em excesso — isso também é um defeito a corrigir, tal como um comando errado.
+
+Sinais de acumulação a procurar activamente durante a auditoria:
+
+- **Entradas datadas tipo changelog** dentro do corpo do README — `Adicionado em AAAA-MM-DD`, `Última verificação: sessão de ...`, listas `✅`/`❌` que crescem a cada sessão sem nunca serem consolidadas. Esse histórico já vive no `git log`; no README deve sobrar quando muito o estado actual (o que existe agora), não a cronologia de como lá chegou.
+- **Narrativas de incidentes já resolvidos**, mantidas na íntegra indefinidamente (contexto completo, timeline, risco residual). Uma vez corrigido, isto resume-se a uma frase — "corrigido em X, ver histórico do Git" — a narrativa completa não continua a ajudar quem lê o README para instalar ou usar o projecto.
+- **Um ensaio por funcionalidade** na documentação de API/funcionalidades (Motivação → Arquitectura em N camadas → Limitações → notas de desambiguação com outra funcionalidade parecida) em vez de uma entrada de tabela ou um parágrafo curto. Detalhe de desenho ao nível de implementação pertence a comentários no código, a `docs/`, ou a um ficheiro tipo `CLAUDE.md`/`ARCHITECTURE.md` — não ao README, que é a porta de entrada.
+- **A mesma informação descrita duas vezes** em secções diferentes (ex.: resumida em "Estado do projecto" e depois outra vez em detalhe algures na documentação de API).
+- **Avisos e ressalvas que já deixaram de ser verdade** mas nunca foram removidos porque a secção só recebeu acrescentos.
+
+Quando encontrar isto:
+
+- resumir para o essencial que um leitor precisa agora (o quê, porquê brevemente, como usar) e remover o resto;
+- se a informação detalhada tiver valor de arquivo (auditoria, conformidade, histórico de incidentes), sugerir movê-la para um ficheiro próprio (`CHANGELOG.md`, `docs/`) em vez de a apagar sem mais — mas tirá-la do README;
+- nunca preservar uma narrativa completa só porque é "tecnicamente correcta" — correcção técnica não é a única barra; um facto correcto mas fora de sítio ou repetido continua a ser um defeito de estrutura.
+
+Isto aplica-se tanto a uma reescrita completa como a uma passagem cirúrgica — mesmo um README maduro deve sair mais curto quando tiver acumulado este tipo de conteúdo, não só mais completo.
+
+### Condensar não basta — às vezes é preciso realojar
+
+Reescrever cada secção em prosa mais curta reduz o volume, mas nem sempre o suficiente: referência técnica genuína — documentação completa de todos os endpoints de uma API, um catálogo extenso (Event IDs, códigos de erro, tabela de permissões), metodologia e resultados de um modelo, troubleshooting com muitos casos — continua a ocupar muito espaço mesmo bem escrita, porque a informação em si é volumosa, não porque está mal condensada.
+
+Quando isto acontecer, o passo seguinte não é cortar mais prosa — é **mover essa referência para um ficheiro dedicado em `docs/`** (ex.: `docs/API.md`, `docs/TROUBLESHOOTING.md`) e deixar no README só:
+
+- uma tabela ou lista curta de alto nível (ex.: nomes de endpoints + uma linha de descrição, não o exemplo de JSON completo de cada um);
+- um link direto para o ficheiro com o detalhe completo.
+
+Verificar sempre, antes de fazer isto, se já existe uma pasta `docs/` ou um padrão equivalente no repositório — encaixar nesse padrão em vez de inventar uma estrutura nova. Um README de ~1500 linhas bem escrito ainda é um README que falha o seu papel de porta de entrada; o critério de "está podado" não é só "a prosa é concisa", é "alguém consegue perceber o projeto, instalar e correr sem ter de passar por conteúdo de referência que só interessa a quem já está a implementar contra a API".
 
 ## Estrutura recomendada
 
@@ -602,6 +635,10 @@ Antes de concluir, verificar:
 [ ] Funcionalidades futuras estão separadas
 [ ] Não existem secções vazias
 [ ] Mermaid representa arquitectura real
+[ ] Não existem entradas tipo changelog/diário de sessão no corpo do README
+[ ] Nenhuma funcionalidade tem um ensaio completo quando uma tabela ou parágrafo curto bastava
+[ ] Nenhuma informação está duplicada em duas secções
+[ ] Incidentes já resolvidos estão resumidos, não narrados na íntegra
 ```
 
 ## Resultado
